@@ -2,7 +2,7 @@ import MicroModal from "micromodal";
 
 export default class Popup {
   private selectors: Record<string, string> = {
-    trigger: "[data-js-hero-or a]",
+    trigger: "[data-js-hero-or] a",
   };
 
   private triggerElement: HTMLElement | null;
@@ -25,9 +25,12 @@ export default class Popup {
 
   private handleClick(event: MouseEvent): void {
     event.preventDefault();
-    MicroModal.show("hero-popup", {
-      disableScroll: true,
-      disableFocus: true,
-    });
+    const popup = document.getElementById("hero-popup") as HTMLElement;
+    if (popup) {
+      MicroModal.show("hero-popup", {
+        disableScroll: true,
+        disableFocus: true,
+      });
+    }
   }
 }
