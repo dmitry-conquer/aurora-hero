@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   </head>
   <body>
     <div id="page" class="site-page">
@@ -11,30 +12,47 @@
         <section data-js-hero class="aurora-hero" style="background-image: url(&quot;/images/bg.png&quot;)">
           <div class="aurora-hero__inner">
             <div class="aurora-hero__container">
-              <div class="aurora-hero__body">
-                <div class="aurora-hero__content">
-                  <h1 class="aurora-hero__title">
-                    Your Trusted Full-Service Home Care Agency <br />
-                    In Philadelphia And Other Parts of PA
-                  </h1>
-                  <div class="aurora-hero__subtitles">
-                    <p data-js-hero-subtitle class="aurora-hero__subtitle">Not Happy with Your Current Agency?</p>
-                    <p data-js-hero-subtitle class="aurora-hero__subtitle">We are #1 Highest Paying  Home Care Agency</p>
+              <div class="aurora-hero__content-container">
+                <div class="aurora-hero__body">
+                  <div class="aurora-hero__content">
+                    <h1 class="aurora-hero__title">
+                      Your Trusted Full-Service Home Care Agency <br />
+                      In Philadelphia And Other Parts of PA
+                    </h1>
+                    <div class="aurora-hero__subtitles">
+                      <p data-js-hero-subtitle class="aurora-hero__subtitle is-active">Not Happy with Your Current Agency?</p>
+                      <p data-js-hero-subtitle class="aurora-hero__subtitle">We are #1 Highest Paying  Home Care Agency</p>
+                      <p data-js-hero-subtitle class="aurora-hero__subtitle">Caring for Family? <span>Get Paid for the Care You Already Provide</span></p>
+                    </div>
+                  </div>
+                  <div class="aurora-hero__main">
+                    <div class="aurora-hero__info info-hero">
+                      <p class="info-hero__title">$2,000</p>
+                      <p class="info-hero__subtitle">Sign-On Bonus</p>
+                      <a href="#" class="info-hero__button"> call us</a>
+                      <p data-js-hero-or class="info-hero__or">Or fill out the <a href="#">contact form</a></p>
+                      <p class="info-hero__disclaimer">*Earn Up to $2,000 bonus. Must fulfill eligibility requirements.</p>
+                    </div>
                   </div>
                 </div>
-                <div class="aurora-hero__main">
-                  <div class="aurora-hero__info info-hero">
-                    <p class="info-hero__title">$2,000</p>
-                    <p class="info-hero__subtitle">Sign-On Bonus</p>
-                    <a href="#" class="info-hero__button"> call us</a>
-                    <p data-js-hero-or class="info-hero__or">Or fill out the <a href="#">contact form</a></p>
-                    <p class="info-hero__disclaimer">*Earn Up to $2,000 bonus. Must fulfill eligibility requirements.</p>
-                  </div>
-                  <div class="aurora-hero__message hero-message">
-                    <p class="hero-message__text">
-                      Find Out Why Aurora is the #1 <br />
-                      Top Choice for Caregivers & Clients
-                    </p>
+                <div class="aurora-hero__messages-container">
+                  <div class="aurora-hero__messages swiper-slider" id="hero-cards-slider">
+                    <div class="aurora-hero__messages-wrapper swiper-wrapper">
+                      <div class="aurora-hero__message hero-message swiper-slide"></div>
+                      <div class="aurora-hero__message hero-message swiper-slide">
+                        <p class="hero-message__text">
+                          Find Out Why Aurora is the #1 <br />
+                          Top Choice for Caregivers & Clients
+                        </p>
+                      </div>
+                      <div class="aurora-hero__message hero-message swiper-slide">
+                        <p class="hero-message__text">
+                          Discover Why Aurora Is the #1 <br />
+                          Choice for Family Caregivers in <br />
+                          Philadelphia & Surrounding Areas
+                        </p>
+                      </div>
+                    </div>
                   </div>
                   <div class="aurora-hero__navigation hero-navigation">
                     <button data-js-hero-button type="button" aria-label="Previous" class="hero-navigation__button hero-navigation__button--prev">
@@ -56,6 +74,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="aurora-hero__links">
                 <a href="#" class="aurora-hero__link">Transfer Today</a>
                 <a href="#" class="aurora-hero__link">Refer a Client</a>
@@ -68,6 +87,7 @@
       </main>
     </div>
     {{>modal}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script type="module" src="/src/scripts/main.ts" defer></script>
   </body>
 </html>

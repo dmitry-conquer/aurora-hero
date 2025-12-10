@@ -1,9 +1,9 @@
-// @use "reset";
+@use "reset";
 @use "globals";
 @use "helpers" as *;
 @use "components" as *;
 
-// @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 .home-hero__slider {
   padding-block: rem(40);
@@ -21,38 +21,7 @@
   font-family: "Poppins", sans-serif;
   margin-bottom: fluid(80, 170);
 
-  &.is-extended {
-    .hero-message {
-      width: calc(100% + rem(30));
-
-      @include x-large {
-        width: 100%;
-      }
-
-      @include large {
-        top: rem(-80);
-        width: calc(100% + rem(30));
-      }
-
-      @include x-small {
-        width: rem(271);
-        top: rem(-60);
-      }
-      &__text {
-        opacity: 1;
-      }
-    }
-
-    .aurora-hero__main {
-      @include large {
-        margin-top: rem(110);
-      }
-
-      @include small {
-        margin-top: rem(90);
-      }
-    }
-  }
+  background-repeat: no-repeat;
 
   &__inner {
     background-size: cover;
@@ -77,14 +46,18 @@
     display: flex;
     column-gap: rem(21);
     position: relative;
-    max-width: rem(975);
-    margin-bottom: rem(50);
+    margin-bottom: rem(117);
+
+    @include x-large {
+      row-gap: rem(50);
+    }
 
     @include large {
       align-items: center;
       flex-direction: column;
       position: static;
       margin-inline: auto;
+      margin-bottom: rem(60);
     }
   }
 
@@ -122,6 +95,30 @@
     max-width: rem(570);
     margin-bottom: 0;
 
+    span {
+      font-size: fluid(26, 40);
+      color: #273272;
+      line-height: 1.25;
+      margin-top: rem(8);
+      display: flex;
+      column-gap: rem(16);
+      text-transform: none;
+      text-align: left;
+
+      &::before {
+        content: "";
+        background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M14.83%209.601a1.745%201.745%200%200%201%202.556-1.545l12.813%206.71c1.247.653%201.247%202.438%200%203.091l-12.814%206.71a1.745%201.745%200%200%201-2.554-1.547v-3.687H3.49a1.745%201.745%200%200%201-1.745-1.745v-2.553c0-.963.781-1.744%201.745-1.744h11.34z%22%20fill%3D%22%23273272%22%2F%3E%3C%2Fsvg%3E");
+        display: inline-block;
+        width: rem(32);
+        height: rem(32);
+        flex-shrink: 0;
+        margin-top: rem(7);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+
     &.is-active {
       opacity: 1;
       width: auto;
@@ -156,6 +153,72 @@
   }
 
   &__info {
+  }
+
+  &__content-container {
+    position: relative;
+    max-width: rem(975);
+
+    &.is-first-slide {
+      .aurora-hero__body {
+        row-gap: rem(0);
+      }
+      .aurora-hero__messages {
+        max-width: rem(400);
+        overflow: hidden;
+        padding-right: rem(15);
+        margin-right: rem(-15);
+        @include large {
+          display: none;
+        }
+      }
+      .aurora-hero__message {
+        transition: none !important;
+      }
+      .hero-message__text {
+        display: none;
+      }
+    }
+
+    @include large {
+      max-width: 100%;
+    }
+  }
+
+  &__messages-container {
+    position: absolute;
+    right: rem(15);
+    bottom: rem(-80);
+    max-width: rem(1000);
+
+    @include x-large {
+      right: 0;
+    }
+
+    @include large {
+      max-width: rem(400);
+      position: static;
+    }
+  }
+
+  &__messages {
+    @include large {
+      height: fluid(225, 320, 1200, 375);
+      max-width: rem(400);
+      position: absolute;
+      bottom: rem(80);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @include x-small {
+      max-width: 95%;
+    }
+  }
+  &__messages-wrapper {
+    transition: none !important;
+  }
+  &__message {
   }
 
   &__links {
@@ -211,7 +274,8 @@
   z-index: 2;
 
   @include x-small {
-    max-width: rem(254);
+    max-width: 84%;
+    margin-inline: auto;
   }
 
   &__title {
@@ -297,17 +361,24 @@
   align-items: center;
   column-gap: rem(3);
   justify-content: flex-end;
-  margin-top: rem(30);
+  margin-top: rem(20);
   position: relative;
   z-index: 2;
 
   @include large {
     position: absolute;
-    right: rem(-18);
+    right: 0;
     bottom: 0;
     flex-direction: column;
     row-gap: rem(6.6);
-    transform: translateX(100%);
+    transform: translateX(-100%);
+  }
+
+  @include x-small {
+    transform: translateX(0);
+  }
+
+  @media (max-width: rem(460)) {
   }
 
   @include x-small {
@@ -343,70 +414,52 @@
 }
 
 .hero-message {
-  background-color: var(--primary-color-message);
-  padding: rem(28) rem(30);
+  background-color: #3041a5;
+  padding: rem(15) rem(30);
   border-radius: rem(28);
-  position: absolute;
-  right: 0;
-  bottom: rem(42);
-  width: rem(344);
-  transition: all 0.7s ease;
+  height: rem(141) !important;
+  display: flex;
+  align-items: center;
+  opacity: 1 !important;
+  box-shadow: none !important;
+
+  &:nth-child(1) {
+    height: rem(135) !important;
+    background-color: transparent;
+  }
+
+  &:nth-child(2) {
+    height: rem(135) !important;
+    background-color: #3b5dba;
+
+    @include large {
+      height: auto !important;
+    }
+  }
 
   @include large {
-    right: 50%;
-    transform: translateX(50%);
-    width: rem(400);
-    bottom: unset;
-    top: rem(-15);
-    height: 85%;
-    padding: rem(13);
-  }
-
-  @include small {
-    width: rem(300);
-    border-radius: rem(20);
-  }
-
-  @include x-small {
-    width: rem(191);
-    top: rem(-10);
-    height: 80%;
+    height: 100% !important;
+    display: block;
   }
 
   &__text {
-    color: var(--white);
-    font-size: rem(28);
+    font-size: fluid(14, 28);
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.42857;
     letter-spacing: -0.56px;
-    height: rem(82);
-    overflow: hidden;
-    transition: opacity 0.3s ease;
+    color: var(--white);
 
     @include large {
-      height: 100%;
-      overflow: visible;
-      font-size: rem(20);
+      font-size: rem(14);
       text-align: center;
-    }
 
-    @include small {
-      letter-spacing: -0.28px;
-      opacity: 0;
-      width: 100%;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: rem(12);
-      min-width: max-content;
+      br {
+        display: none !important;
+      }
     }
 
     @include x-small {
-      font-size: rem(14);
-    }
-
-    br {
-      display: block !important;
+      font-size: rem(12);
     }
   }
 }

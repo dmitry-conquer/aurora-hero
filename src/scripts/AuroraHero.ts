@@ -3,6 +3,7 @@ export default class AuroraHero {
     root: "[data-js-hero]",
     button: "[data-js-hero-button]",
     subtitle: "[data-js-hero-subtitle]",
+    message: ".hero-message",
   };
 
   private statesClasses: Record<string, string> = {
@@ -14,52 +15,74 @@ export default class AuroraHero {
   private rootElement: HTMLElement | null;
   private buttonElements: HTMLElement[] = [];
   private subtitlesElements: HTMLElement[] = [];
-  private isExtended: boolean = false;
+  private messageElements: HTMLElement[] = [];
+  private currentIndex: number = 0;
 
   constructor() {
     this.rootElement = document.querySelector(this.selectors.root) as HTMLElement;
     this.buttonElements = Array.from(document.querySelectorAll(this.selectors.button)) as HTMLElement[];
     this.subtitlesElements = Array.from(document.querySelectorAll(this.selectors.subtitle)) as HTMLElement[];
+    this.messageElements = Array.from(document.querySelectorAll(this.selectors.message)) as HTMLElement[];
     if (this.isReady()) {
       this.init();
     }
   }
 
   private isReady(): boolean {
-    return !!this.rootElement && this.buttonElements.length === 2 && this.subtitlesElements.length === 2;
+    return !!this.rootElement && this.buttonElements.length === 2 && this.subtitlesElements.length === 3 && this.messageElements.length === 2;
   }
 
   private init(): void {
     this.randomizeSubtitles();
-    this.isExtended = this.rootElement?.classList.contains(this.statesClasses.extended) ?? false;
     this.updateUI();
 
-    this.buttonElements.forEach((button: HTMLElement) => {
-      button.addEventListener("click", this.handleButtonClick.bind(this));
+    this.buttonElements.forEach((button: HTMLElement, index: number) => {
+      button.addEventListener("click", () => this.handleButtonClick(index === 0 ? -1 : 1));
     });
   }
 
-  private handleButtonClick(event: Event): void {
-    this.rootElement?.classList.toggle(this.statesClasses.extended);
-    this.isExtended = !this.isExtended;
-    this.updateUI();
+  private handleButtonClick(direction: number): void {
+    const newIndex = this.currentIndex + direction;
 
-    const target = event.currentTarget as HTMLElement;
-    const index = this.buttonElements.indexOf(target);
-    (this.buttonElements[index] as HTMLButtonElement).disabled = true;
-    (this.buttonElements[1 - index] as HTMLButtonElement).disabled = false;
+    if (newIndex < 0 || newIndex > 2) {
+      return;
+    }
+
+    this.currentIndex = newIndex;
+    this.updateUI();
+    this.updateButtons();
+  }
+
+  private updateButtons(): void {
+    const prevButton = this.buttonElements[0] as HTMLButtonElement;
+    const nextButton = this.buttonElements[1] as HTMLButtonElement;
+
+    prevButton.disabled = this.currentIndex === 0;
+    nextButton.disabled = this.currentIndex === 2;
   }
 
   private updateUI(): void {
-    const currentIndex = this.isExtended ? 0 : 1;
-    const previousIndex = this.isExtended ? 1 : 0;
+    this.subtitlesElements.forEach(subtitle => {
+      subtitle.classList.remove(this.statesClasses.active);
+    });
 
-    this.subtitlesElements[previousIndex].classList.remove(this.statesClasses.active);
-    this.subtitlesElements[currentIndex].classList.add(this.statesClasses.active);
+    this.messageElements.forEach(message => {
+      message.classList.remove(this.statesClasses.extended);
+    });
+
+    this.subtitlesElements[this.currentIndex].classList.add(this.statesClasses.active);
+
+    if (this.currentIndex === 1) {
+      this.messageElements[0].classList.add(this.statesClasses.extended);
+    } else if (this.currentIndex === 2) {
+      this.messageElements[1].classList.add(this.statesClasses.extended);
+    }
+
+    this.updateButtons();
   }
 
   private randomizeSubtitles(): void {
     const randomIndex = Math.floor(Math.random() * this.subtitlesElements.length);
-    this.rootElement?.classList.add(randomIndex === 0 ? this.statesClasses.extended : this.statesClasses.notExtended);
+    this.currentIndex = randomIndex;
   }
 }
